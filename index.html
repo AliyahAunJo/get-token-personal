@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Line Notify LINK</title>
+</head>
+<body>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var liffId = "llllllllllllllllllllllllllllll";
+            initializeLiff(liffId);
+        })
+
+        function initializeLiff(liffId) {
+            liff
+                .init({
+                    liffId: liffId
+                })
+                .then(() => {
+                    if (!liff.isInClient() && !liff.isLoggedIn()) {
+                        window.alert("กรุณาเข้าสู่ระบบบัญชี LINE ของคุณ");
+                        liff.login();
+                    }
+                })
+                .catch((err) => {
+                    console.log('LIFF Initialization failed ', err);
+                });
+        }
+
+        const params = (new URL(document.location)).searchParams;
+        const event = params.get("event");
+        localStorage.setItem("event", event);
+
+        liff.ready.then(() => {
+            const userId = liff.getDecodedIDToken().sub;
+            const state = userId;
+            localStorage.setItem("state", state);
+
+            const redirectUri = 'https://script.google.com/macros/s/zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz/exec';
+            const clientId = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+            window.location.replace(`https://notify-bot.line.me/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=notify&state=${state}`);
+        });
+    </script>
+</body>
+</html>
