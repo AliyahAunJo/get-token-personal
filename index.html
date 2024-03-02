@@ -1,47 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <title>Line Notify LINK</title>
+  <base target="_top">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            var liffId = "2003873534-GND9n4nB";
-            initializeLiff(liffId);
-        })
+  <div class="container d-flex align-items-center vh-100">
+    <div class="row frame">
+      <h5 class="mt-1 mb-3 header text-center">GenToken Line Notify</h5>
 
-        function initializeLiff(liffId) {
-            liff
-                .init({
-                    liffId: liffId
-                })
-                .then(() => {
-                    if (!liff.isInClient() && !liff.isLoggedIn()) {
-                        window.alert("กรุณาเข้าสู่ระบบบัญชี LINE ของคุณ");
-                        liff.login();
-                    }
-                })
-                .catch((err) => {
-                    console.log('LIFF Initialization failed ', err);
-                });
-        }
+      <!-- create form element here -->
+      <form id="registerForm">
+        <div id="blockmail" class="form-group mb-4 box">
+          <label><i class="fa-regular fa-envelope me-3"></i> อีเมลล์ของคุณ</label>
+          <input type="email" class="form-control inp mb-3" id="emailinp" name="emailinp" placeholder="email@email.com"
+            required>
+        </div>
 
-        const params = (new URL(document.location)).searchParams;
-        const event = params.get("event");
-        localStorage.setItem("event", event);
+        <div id="blockname" class="form-group mb-4 box">
+          <label><i class="fa-regular fa-user me-3"></i> ให้เราเรียกคุณว่า</label>
+          <input type="text" class="form-control inp mb-3" id="nameinp" name="nameinp"
+            placeholder="ชื่อที่คุณอยากให้เรากล่าวถึง" required>
+        </div>
 
-        liff.ready.then(() => {
-            const userId = liff.getDecodedIDToken().sub;
-            const state = userId;
-            localStorage.setItem("state", state);
+        <div id="blocktoken" class="form-group mb-4 box">
+          <label>คลิกคัดลอก Token เก็บไว้</label>
+          <div class="d-flex gap-4">
+            <p id="tokenshow"></p>
+            <span id="copy_btn" style="cursor: pointer;"><i class="fa-regular fa-copy"></i></span>
+          </div>
+        </div>
+        <div class="form-group mt-4 mb-4 text-center">
+          <button id="submit_btn" type="submit" class="button-1" role="button">ยินดีรับการแจ้งเตือน</button>
+          <button id="cancle_btn" type="button" class="button-2" onclick="cancleToken()"
+            role="button">ยกเลิกรับการแจ้งเตือน</button>
 
-            const redirectUri = 'https://script.google.com/macros/s/AKfycbzxZ0NW5lWOYefNH8AlG4pyCw-LnKMP7qvWLXd7uZl5-pjTOPkZ7VHBWjZhr8J6ipV6/exec';
-            const clientId = 'ud3DzjEa8JshuQeW2v4SWr';
-            window.location.replace(`https://notify-bot.line.me/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=notify&state=${state}`);
-        });
-    </script>
+        </div>
+      </form>
+      <div class="footcard text-center">
+        <span class="text-danger" id="almsg"></span>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="script.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
+    integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
+    integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
+
 </html>
