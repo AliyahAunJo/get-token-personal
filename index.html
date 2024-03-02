@@ -9,7 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
-            var liffId = "llllllllllllllllllllllllllllll";
+            var liffId = "2003873534-GND9n4nB";
             initializeLiff(liffId);
         })
 
@@ -38,8 +38,8 @@
             const state = userId;
             localStorage.setItem("state", state);
 
-            const redirectUri = 'https://script.google.com/macros/s/zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz/exec';
-            const clientId = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+            const redirectUri = 'https://script.google.com/macros/s/AKfycbzxZ0NW5lWOYefNH8AlG4pyCw-LnKMP7qvWLXd7uZl5-pjTOPkZ7VHBWjZhr8J6ipV6/exec';
+            const clientId = 'MqdSDZ2QpxhrwdJEjWSkkg';
             window.location.replace(`https://notify-bot.line.me/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=notify&state=${state}`);
         });
     </script>
