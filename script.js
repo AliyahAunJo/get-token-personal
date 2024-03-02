@@ -131,7 +131,7 @@ async function cancleToken() {
     console.log(status)
 
     Swal.fire(`ยกเลิกบริการ line แจ้งเตือนเรียบร้อย`)
-    window.open("https://gentokenzoom.smaanakphathnaa.repl.co", "_self");
+    window.open("https://aliyahaunjo.github.io/get-token-personal/", "_self");
     return json
   }
 }
